@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8
+    container_name: mysql_airline
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: airline_rest_api
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+  web:
+    build: .
+    container_name: django_airline
+    links: 
+      - "db"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+volumes:
+  db:
+    driver: local
