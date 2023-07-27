@@ -2,3 +2,7 @@
 
 # __pycache__ files.
 /airline_rest_api/__pycache__
+/airline/__pycache__
+/aircraft/__pycache__
+/airline/migrations
+/aircraft/migrations
