@@ -14,9 +14,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+
 from django.urls import path
+from rest_framework_simplejwt import views as jwt_views
+from airline.urls import airline_urls
+from aircraft.urls import aircraft_urls
+
+class CustomTokenObtainView(jwt_views.TokenObtainPairView):
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        if 'access' in response.data:
+            token = response.data.pop('access')
+            response.data['token'] = token
+        if 'refresh' in response.data:
+            response.data.pop('refresh')
+        return response
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('api-token-auth/', CustomTokenObtainView.as_view(), name='token'),
+    *airline_urls,
+    *aircraft_urls,
 ]
