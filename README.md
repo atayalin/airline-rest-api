@@ -4,6 +4,8 @@ A simple REST API that handles airlines and aircrafts. The project is presented 
 
 ## Installation without Docker.
 
+(DATABASES.HOST should be changed into 127.0.0.1. MySQL should be run alone.)
+
 1. Clone the project from this repo.
 
 ```bash
